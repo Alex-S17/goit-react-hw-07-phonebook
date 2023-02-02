@@ -18,7 +18,6 @@ export const contactsSlice = createSlice({
       state.isLoading = false;
       state.error = null;
       state.data = action.payload;
-      console.log(state.data);
     },
     [fetchContacts.rejected](state, action) {
       state.isLoading = false;
