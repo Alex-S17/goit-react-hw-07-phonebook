@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addContact } from '../../redux/operations';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+// import { ToastContainer, toast } from 'react-toastify';
+// import 'react-toastify/dist/ReactToastify.css';
 import css from './Form.module.css';
 
 export function Form() {
@@ -34,11 +34,13 @@ export function Form() {
       dispatch(addContact(newContact));
       return true;
     }
-    toast.info(`${newName} is already in contacts`, {
-      position: 'top-center',
-      autoClose: 3000,
-      theme: 'colored',
-    });
+    return alert(`${newName} is already in contacts`);
+
+    // toast.info(`${newName} is already in contacts`, {
+    //   position: 'top-center',
+    //   autoClose: 3000,
+    //   theme: 'colored',
+    // });
   };
 
   const handleFormSubmit = event => {
@@ -87,7 +89,7 @@ export function Form() {
           Add contact
         </button>
       </form>
-      <ToastContainer position="top-center" autoClose={3000} />
+      {/* <ToastContainer position="top-center" autoClose={3000} /> */}
     </>
   );
 }
