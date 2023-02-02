@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import css from './ContactItem.module.css';
 
 export const ContactItem = ({ contact, onDeleteContact }) => {
-  const { id, name, number } = contact;
+  const { id, name, phone } = contact;
   return (
     <li className={css.contactWrapper}>
-      {name}: {number}
+      {name}: {phone}
       <button className={css.buttonDelete} onClick={() => onDeleteContact(id)}>
         Delete
       </button>

@@ -1,7 +1,8 @@
-import { nanoid } from 'nanoid';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addContact } from '../../redux/contactsSlice';
+import { addContact } from '../../redux/operations';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import css from './Form.module.css';
 
 export function Form() {
@@ -26,14 +27,18 @@ export function Form() {
     );
     if (!nameIsPresent) {
       const newContact = {
-        id: nanoid(),
+        // id: nanoid(),
         name: newName,
-        number: newNumber,
+        phone: newNumber,
       };
       dispatch(addContact(newContact));
       return true;
     }
-    return alert(`${newName} is already in contacts`);
+    toast.info(`${newName} is already in contacts`, {
+      position: 'top-center',
+      autoClose: 3000,
+      theme: 'colored',
+    });
   };
 
   const handleFormSubmit = event => {
@@ -50,37 +55,39 @@ export function Form() {
   };
 
   return (
-    <form className={css.form} onSubmit={handleFormSubmit}>
-      <label className={css.label}>
-        Name
-        <input
-          className={css.nameInput}
-          type="text"
-          name="name"
-          value={name}
-          onChange={handleNameChange}
-          pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-          title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
-          required
-        />
-      </label>
-      <label>
-        Number
-        <input
-          className={css.nameInput}
-          type="tel"
-          name="number"
-          value={number}
-          onChange={handleNumberChange}
-          pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
-          title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
-          required
-        />
-      </label>
-      <button className={css.addBatton} type="submit">
-        Add contact
-      </button>
-    </form>
+    <>
+      <form className={css.form} onSubmit={handleFormSubmit}>
+        <label className={css.label}>
+          Name
+          <input
+            className={css.nameInput}
+            type="text"
+            name="name"
+            value={name}
+            onChange={handleNameChange}
+            pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
+            title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
+            required
+          />
+        </label>
+        <label>
+          Number
+          <input
+            className={css.nameInput}
+            type="tel"
+            name="number"
+            value={number}
+            onChange={handleNumberChange}
+            pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
+            title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
+            required
+          />
+        </label>
+        <button className={css.addBatton} type="submit">
+          Add contact
+        </button>
+      </form>
+      <ToastContainer position="top-center" autoClose={3000} />
+    </>
   );
 }
-//
